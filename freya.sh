@@ -31,7 +31,7 @@ chroot () {
 
     echo Installing some UI tweaks...
     #dbus-launch gsettings set org.gnome.settings-daemon.peripherals.touchpad disable-while-typing true
-    dbus-launch gsettings set org.gnome.settings-daemon.peripherals.touchpad tap-to-click true
+    dbus-launch gsettings set org.gnome.settings-daemon.peripherals.touchpad tap-to-click false
     dbus-launch gsettings set org.gnome.settings-daemon.peripherals.touchpad motion-acceleration 5.0
     #dbus-launch gsettings set org.gnome.desktop.interface cursor-size 48
 
