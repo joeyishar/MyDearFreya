@@ -3,8 +3,8 @@
 #MyDearFreya v0.04
 
 chroot () {
-	#Chroot specific functions that are run from within Trusty when this script is called with an argument of "installelementary"
-	#------------------------------------------------------------------
+    #Chroot specific functions that are run from within Trusty when this script is called with an argument of "installelementary"
+    #------------------------------------------------------------------
     echo Setting language variables...
     sudo sed -i '1s/^/LC_ALL=en_US.UTF-8\n/' /etc/environment
     sudo sed -i '1s/^/LANGUAGE=en_US.UTF-8\n/' /etc/environment
@@ -27,7 +27,7 @@ chroot () {
     sudo apt-get -y -qq dist-upgrade
 
     echo Installing elementary-desktop... this will take some time...
-	sudo apt-get -y -qq install elementary-desktop
+    sudo apt-get -y -qq install elementary-desktop
 
     echo Installing some UI tweaks...
     #dbus-launch gsettings set org.gnome.settings-daemon.peripherals.touchpad disable-while-typing true
@@ -41,52 +41,26 @@ chroot () {
     sudo sed -i '1s/^/iface wlan0 inet manual\n/' /etc/network/interfaces
 
     echo Creating your startelementary scripts...
-	cd /usr/bin
-	sudo echo '#!/bin/sh
+    cd /usr/bin
+    sudo echo '#!/bin/sh
   exec xinit /usr/bin/xinit_pantheon' >> startelementary
-	sudo chmod +x startelementary
-	sudo chown root:root startelementary
-	sudo echo '#!/bin/sh
+    sudo chmod +x startelementary
+    sudo chown root:root startelementary
+    sudo echo '#!/bin/sh
   gnome-session --session=pantheon' >> xinit_pantheon
-	sudo chmod +x xinit_pantheon
-	sudo chown root:root xinit_pantheon
-    echo ==================================================
-    echo ==================================================
-    echo ==================================================
-    echo ==================================================
-    echo To continue...
-    echo Exit the chroot with the command:
-    echo '      exit'
-    echo ==================================================
-    echo ==================================================
-    echo if it hangs unmounting, hit Ctrl+C to return to the crosh shell...
-    echo and enter the following command from the chrosh shell:
-    echo '      sudo sh freya.sh continue'
-    echo ==================================================
-    echo ==================================================
-    echo ==================================================
-    echo ==================================================
+    sudo chmod +x xinit_pantheon
+    sudo chown root:root xinit_pantheon
+    exit
 }
 
+# Called by DEFAULT when calling the script
 chrome () {
-
-	sh -e crouton -r trusty -t x11,extension -n freya
-    echo ==================================================
-    echo ==================================================
-    echo ==================================================
-    echo ==================================================
-    echo To continue, enter your chroot:
-    echo '      sudo enter-chroot -n freya'
-    echo ==================================================
-    echo ==================================================
-    echo And from the chroot, enter the following command:
-    echo '      sudo sh ~/Downloads/freya.sh installelementary'
-    echo ==================================================
-    echo ==================================================
-    echo ==================================================
-    echo ==================================================
+    sh -e crouton -r trusty -t x11,extension,keyboard -n freya
+    sudo enter-chroot -n freya -u root sh ~/Downloads/freya.sh installelementary
+    sudo sh ~/Downloads/freya.sh continue
 }
 
+# Called when calling the script with CONTINUE
 tryagain () {
     C
     echo Picking up where we left off...
@@ -95,30 +69,31 @@ tryagain () {
 }
 
 scriptinstall () {
-sudo echo '#!/bin/sh -e
-# Copyright (c) 2014 The crouton Authors. All rights reserved.
-# Use of this source code is governed by a BSD-style license that can be
-# found in the LICENSE file.
+    sudo echo '#!/bin/sh -e
+    # Copyright (c) 2014 The crouton Authors. All rights reserved.
+    # Use of this source code is governed by a BSD-style license that can be
+    # found in the LICENSE file.
 
-set -e
+    set -e
 
-APPLICATION="${0##*/}"
+    APPLICATION="${0##*/}"
 
-USAGE="$APPLICATION [options]
+    USAGE="$APPLICATION [options]
 
-Wraps enter-chroot to start an Elementary OS session.
-By default, it will log into the primary user on the first chroot found.
+    Wraps enter-chroot to start an Elementary OS session.
+    By default, it will log into the primary user on the first chroot found.
 
-Options are directly passed to enter-chroot; run enter-chroot to list them."
+    Options are directly passed to enter-chroot; run enter-chroot to list them."
 
-exec sh -e "`dirname "\`readlink -f "$0"\`"`/enter-chroot" -n freya "$@" "" \
-    exec startelementary' >> /usr/local/bin/startelementary
+    exec sh -e "`dirname "\`readlink -f "$0"\`"`/enter-chroot" -n freya "$@" "" \
+        exec startelementary' >> /usr/local/bin/startelementary
     sudo chown root:root /usr/local/bin/startelementary
     sudo chmod +x /usr/local/bin/startelementary
     echo All done, entering Elementary OS Freya...
     sleep 1
-	sudo startelementary
-
+    
+    # This should start elementary OS
+    sudo startelementary
 }
 
 
