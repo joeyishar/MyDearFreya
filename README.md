@@ -1,4 +1,5 @@
 # MyDearFreya
+# THIS IS A TESTING BUILD. WILL CONFIRM IF I GET IT WORKING. ATTEMPTING FOR LOKI.
 Script to install Elementary OS 0.3 (Freya) onto your Chromebook
 
 Courtesy of Reddit user Skitals, more discussion here: http://www.reddit.com/r/Crouton/comments/32akho/any_guides_to_getting_the_new_elementary_freya/
