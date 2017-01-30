@@ -89,7 +89,7 @@ scriptinstall () {
         exec startelementary' >> /usr/local/bin/startelementary
     sudo chown root:root /usr/local/bin/startelementary
     sudo chmod +x /usr/local/bin/startelementary
-    echo All done, entering Elementary OS Freya...
+    echo All done, entering Elementary OS Loki...
     sleep 1
     
     # This should start elementary OS
