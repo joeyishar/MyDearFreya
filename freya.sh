@@ -56,7 +56,7 @@ chroot () {
 # Called by DEFAULT when calling the script
 chrome () {
     sh -e crouton -r xenial -t x11,extension,keyboard -n loki
-    sudo enter-chroot -n xenial -u root sh ~/Downloads/freya.sh installelementary
+    sudo enter-chroot -n loki -u root sh ~/Downloads/freya.sh installelementary
     sudo sh ~/Downloads/freya.sh continue
 }
 
