@@ -85,7 +85,7 @@ scriptinstall () {
 
     Options are directly passed to enter-chroot; run enter-chroot to list them."
 
-    exec sh -e "`dirname "\`readlink -f "$0"\`"`/enter-chroot" -n freya "$@" "" \
+    exec sh -e "`dirname "\`readlink -f "$0"\`"`/enter-chroot" -n loki "$@" "" \
         exec startelementary' >> /usr/local/bin/startelementary
     sudo chown root:root /usr/local/bin/startelementary
     sudo chmod +x /usr/local/bin/startelementary
